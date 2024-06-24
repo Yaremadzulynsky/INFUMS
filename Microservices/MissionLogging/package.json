@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "@firebase/firestore": "^3.8.1",
+    "@types/jquery": "^3.5.16",
+    "@types/node": "^18.11.18",
+    "dotenv": "^16.4.5",
+    "firebase": "^9.16.0",
+    "firebase-admin": "^11.5.0",
+    "firebase-cli": "^1.2.0",
+    "firestore": "^1.1.6",
+    "google": "^2.1.0",
+    "jquery": "^3.6.3",
+    "JSON": "^1.0.0",
+    "typescript": "^4.9.5"
+  },
+  "scripts": {
+    "main": "tsc && node bin/index.js"
+  }
+}

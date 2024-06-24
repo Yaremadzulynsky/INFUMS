@@ -1,0 +1,27 @@
+{
+    "name": "aeroradarmock",
+    "version": "1.0.0",
+    "description": "",
+    "main": "bin/index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "main": "tsc && node bin/index.js",
+        "build": "tsc",
+        "mock": "tsc && node bin/uploadMockData.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "axios": "^0.21.4",
+        "bottleneck": "^2.19.5",
+        "csv-parser": "^3.0.0",
+        "dotenv": "^16.4.5",
+        "firebase": "^10.12.2",
+        "fs-extra": "^11.2.0",
+        "tsc": "2.0.4",
+        "typescript": "^4.4.4"
+    },
+    "devDependencies": {
+        "@types/fs-extra": "^11.0.4"
+    }
+}

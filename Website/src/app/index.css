@@ -1,0 +1,102 @@
+
+.map {
+  display: flex;
+  width: 100%;
+  /*height: 100vh;*/
+  /*height: 100%;*/
+  height: 100vh;
+  /*top: 0;*/
+  /*left: 0;*/
+  /*z-index: 1;*/
+  /*padding: 12px;*/
+  border-bottom-left-radius: 0.5%;
+  /*padding-left: 10px;*/
+  padding-right: 1px;
+  padding-top: 1px;
+
+
+}
+.dataMap {
+  top: 2.5%;
+  display: flex;
+  width: 100%;
+  /*height: 100vh;*/
+  height: 400px;
+  /*top: 0;*/
+  /*left: 0;*/
+  /*z-index: 1;*/
+  /*padding: 12px;*/
+  border-radius: 0.5%;
+  /*padding-left: 10px;*/
+  padding-right: 1px;
+  padding-top: 1px;
+  justify-content: center;
+
+
+}
+
+
+.flight-info {
+  /*width: 400px;*/
+  height: fit-content;
+  /*width: 100%;*/
+  /*float: left;*/
+  margin-top: 10px;
+  padding: 20px;
+}
+
+.flight-info-data-page {
+  /*width: 400px;*/
+  height: 800px;
+  width: 100%;
+  /*float: left;*/
+  /*margin-top: 10px;*/
+  /*padding: 20px;*/
+}
+
+.flight-info h2 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.flight-info h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.flight-info table {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.flight-info td {
+  padding: 5px;
+  font-size: 18px;
+}
+
+.flight-info .header {
+  font-weight: bold;
+}
+
+.flight-info .ui.progress {
+  margin-top: 20px;
+
+}
+
+.ui.icon.input {
+  width: 100%;
+}
+
+.ui.container {
+  /*width: 600px;*/
+}
+
+.ui.icon.button {
+  background-color: transparent;
+  border: none;
+  margin: 0px;
+}
+.table  {
+  margin-top: 20px;
+  width: 100%;
+}

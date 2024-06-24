@@ -1,0 +1,34 @@
+.vscode/settings.json
+# .gitignore
+
+# Microservices
+# Cad
+.vscode
+
+node_modules
+
+Website/database.rules.json
+Website/firebaserules.json
+secrets.h
+cmake-build-debug
+cmake-build-mkrwifi1010
+Embedded/lib
+Embedded/test
+Embedded/include
+Embedded/CMakeListsPrivate.txt
+Embedded/CMakeLists.txt
+.DS_Store
+ignore
+.env
+# Website
+_Website
+bin
+database.rules.json
+firebase.json
+.firebaserc
+
+google.json
+firebase.json
+.firebaserc
+apphosting.yaml
+preview.md

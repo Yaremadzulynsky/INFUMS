@@ -1,0 +1,14 @@
+version: '3'
+services:
+  app:
+    build: .
+    container_name: mock_data
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "8080:8080"  # Adjust the port if needed
+    environment:
+      - NODE_ENV=development
+    command: node bin/index.js
