@@ -177,6 +177,9 @@ export default function HomePage(): JSX.Element {
 
               {/* This section allows users to search for a specific drone */}
               <SearchBar />
+              <p style={{padding: 0, margin: 0, marginTop: 12, fontSize: 12, textAlign: "center", color: "gray" }}>
+                  For more details on the telemetry data & flight logs, click on the drone name at the top left of the screen!
+                </p>
             </>
           </LeftColumnWrapper>
           <RightColumnWrapper>
