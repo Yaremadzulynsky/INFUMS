@@ -12,7 +12,6 @@ env:
   REGION: "${{ secrets.REGION }}" # TODO: update Cloud Run service region
   TF_CLOUD_ORGANIZATION: "ydzulynsky"
   TF_WORKSPACE: "Infrustructure"
-  CONFIG_DIRECTORY: "/home/runner/work/AeroRadarPublic/AeroRadarPublic/Infrustructure"
 
 jobs:
   deploy:
