@@ -164,6 +164,9 @@ export default function HomePage(): JSX.Element {
                   style={{ color: "#0563C1" }}
                 >
                   {selectedDrone.droneID}
+                  <p style={{ fontSize: 12, textAlign: "left", color: "gray" }}>
+                Click me for more detailed data!
+                </p>
                 </text>
                 <NavigationBar floatLeft={false} router={router} />
               </h2>
