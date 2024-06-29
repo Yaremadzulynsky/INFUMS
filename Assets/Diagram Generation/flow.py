@@ -35,7 +35,7 @@ with Diagram("Service Interactions", show=False):
     
     satellite >> Edge() << functions
     
-    functions >> Edge() >> realtimeDB
+    functions >> Edge(label="Write Telemetry & Manage Drone Configuration") << realtimeDB
     
     server = Client("Mission Logging Server")
     
@@ -58,8 +58,8 @@ with Diagram("Service Interactions", show=False):
         container2 >> Edge() << authentication
         container3 >> Edge() << authentication
         
-        authentication >> Edge() << firestore
-        authentication >> Edge() << realtimeDB
+        authentication >> Edge(label="Previous Missions") >> firestore
+        authentication >> Edge(label="Realtime Flight Data") << realtimeDB
         
         
         
