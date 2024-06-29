@@ -5,3 +5,5 @@ Welcome to the INFUMS repository. This project is a comprehensive data streaming
 
 # Infrastructure Flow
 ![alt text](<Assets/Diagram Generation/service_interactions.png>)
+
+# Table of Contents
