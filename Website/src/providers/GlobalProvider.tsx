@@ -138,6 +138,7 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
 
   //init firebase objects
   try {
+    // console.log(firebaseConfigOptions)
     const app = firebase.initializeApp(firebaseConfigOptions);
     // Your Firebase initialization code
 
