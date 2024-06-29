@@ -6,6 +6,8 @@ config();
 // console.log(process.env.NEXT_PUBLIC_FIREBASE_CONFIG)
 // console.log(process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY)
 
+// console.log(JSON.stringify(process.env))
+
 export let firebaseConfigOptions: FirebaseOptions = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || "",
     authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN || "",

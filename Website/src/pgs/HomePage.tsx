@@ -118,7 +118,7 @@ export default function HomePage(): JSX.Element {
         );
       }
     } else {
-      setSelectedDrone(allRegisteredDrones.find((drone) => drone.droneID === "Nimbus") as IFlightData);;
+      setSelectedDrone(allRegisteredDrones.find((drone) => drone.droneID === "DroneAC") as IFlightData);;
       searchParams.set("droneID", selectedDrone.droneID);
       const newUrl = `${window.location.pathname}?${searchParams.toString()}`;
       router.push(newUrl);
@@ -145,7 +145,7 @@ export default function HomePage(): JSX.Element {
                 {/* <Link to="/data">{selectedDrone.droneID}</Link> */}
                 <text
                   onClick={() => {
-                    console.log(selectedDrone);
+                    // console.log(selectedDrone);
                     //find current search params
                     
 
@@ -164,11 +164,14 @@ export default function HomePage(): JSX.Element {
                   style={{ color: "#0563C1" }}
                 >
                   {selectedDrone.droneID}
-                  <p style={{ fontSize: 12, textAlign: "left", color: "gray" }}>
-                Click me for more detailed data!
-                </p>
+         
                 </text>
                 <NavigationBar floatLeft={false} router={router} />
+                <p onClick={() => {
+                    router.push(`/drone?droneID=${selectedDrone.droneID}`);
+                  }} style={{padding: 0, margin: 0, marginTop: 0, fontSize: 12, textAlign: "left", color: "gray" }}>
+                Click me for more detailed data!                </p>
+                
               </h2>
               {/*<LogoutButton />*/}
               {/*<Menu/>*/}
@@ -182,6 +185,9 @@ export default function HomePage(): JSX.Element {
               <SearchBar />
               <p style={{padding: 0, margin: 0, marginTop: 12, fontSize: 12, textAlign: "center", color: "gray" }}>
                   For more details on the telemetry data & flight logs, click on the drone name at the top left of the screen!
+                </p>
+              <p style={{padding: 0, margin: 0, marginTop: 0, fontSize: 12, textAlign: "center", color: "gray" }}>
+              Note: The map is interactive!
                 </p>
             </>
           </LeftColumnWrapper>

@@ -17,25 +17,17 @@ import {
 } from "../interfaces/Objects";
 import { GlobalContext } from "../providers/GlobalProvider";
 import DroneConfigBanner from "../components/DroneConfigBanner";
-// import timeSlider from "../components/TimeSlider";
 import { NavigationBar } from "../components/NavigationBar";
 import { useRouter, useSearchParams } from "next/navigation";
 import "semantic-ui-css/semantic.min.css";
-import { set } from "firebase/database";
 
 /**
  * Properties for each row in the table.
- * @property {string} leftColumn - The text for the left column.
- * @property {string} rightColumn - The text for the right column.
- * @property {string} icon - The semantic ui icon class name for
- * the icon to display in the left column.
+ * @property {string} firstColumn - The text for the first column.
+ * @property {string} secondColumn - The text for the second column.
+ * @property {string} thirdColumn - The text for the third column.
+ * @property {string} fourthColumn - The text for the fourth column.
  */
-interface TableRowProps {
-  mission: FlightLogFromDB;
-  row: RowProps;
-  icon: string;
-}
-
 interface RowProps {
   firstColumn: string;
   secondColumn: string;
@@ -43,6 +35,24 @@ interface RowProps {
   fourthColumn: string;
 }
 
+/**
+ * Properties for each mission row in the table.
+ * @property {FlightLogFromDB} mission - The mission data.
+ * @property {RowProps} row - The row data.
+ * @property {string} icon - The icon for the row.
+ */
+interface TableRowProps {
+  mission: FlightLogFromDB;
+  row: RowProps;
+  icon: string;
+}
+
+/**
+ * Component for displaying previous missions.
+ * @param {Object} props - The component properties.
+ * @param {TableRowProps[]} props.rows - The rows to display.
+ * @param {Function} props.handleClick - The click handler for rows.
+ */
 function Missions(props: {
   rows: TableRowProps[];
   handleClick: (mission: FlightLogFromDB) => void;
@@ -54,41 +64,37 @@ function Missions(props: {
       <h2 style={{ paddingTop: "10px" }} className="header">
         Previous Missions
       </h2>
+      <p style={{ textAlign: "center", color: "gray" }}>
+        Click on a mission to play it back!
+      </p>
       <table className="ui celled table">
-        <tbody id="missionDetails" />
-        <td className="header">
-          <i className={"header"} />
-          Drone ID
-        </td>
-        <td className="header">Took Off</td>
-        <td className={"header"}>Landed</td>
-        <td className="header">
-          <i className={"header"} />
-          Mission Length
-        </td>
-        {props.rows.map((row, index) => (
-          <tr
-            key={index}
-            onClick={() => {
-              props.handleClick(row.mission);
-            }}
-            onMouseEnter={() => {
-              setHoveredRowIndex(index);
-            }}
-            onMouseLeave={() => {
-              setHoveredRowIndex(null);
-            }}
-            style={{
-              backgroundColor:
-                hoveredRowIndex === index ? "#f9f9f9" : "inherit",
-            }}
-          >
-            <td>{row.row.firstColumn}</td>
-            <td>{row.row.secondColumn}</td>
-            <td>{row.row.thirdColumn}</td>
-            <td>{row.row.fourthColumn}</td>
+        <thead>
+          <tr>
+            <th>Drone ID</th>
+            <th>Took Off</th>
+            <th>Landed</th>
+            <th>Mission Length</th>
           </tr>
-        ))}
+        </thead>
+        <tbody>
+          {props.rows.map((row, index) => (
+            <tr
+              key={index}
+              onClick={() => props.handleClick(row.mission)}
+              onMouseEnter={() => setHoveredRowIndex(index)}
+              onMouseLeave={() => setHoveredRowIndex(null)}
+              style={{
+                backgroundColor:
+                  hoveredRowIndex === index ? "#f9f9f9" : "inherit",
+              }}
+            >
+              <td>{row.row.firstColumn}</td>
+              <td>{row.row.secondColumn}</td>
+              <td>{row.row.thirdColumn}</td>
+              <td>{row.row.fourthColumn}</td>
+            </tr>
+          ))}
+        </tbody>
       </table>
     </div>
   );
@@ -98,22 +104,20 @@ let currentFlyingDrone: IFlightData;
 let missionCoordinates: ICoordinate[];
 let missions: FlightLogFromDB[];
 
+/**
+ * Wrapper component for the data page.
+ */
 function DataPageWrapper() {
   const router = useRouter();
   const searchParams = new URLSearchParams(window.location.search);
-
-  const {
-    selectedDrone,
-    setSelectedDrone,
-    allRegisteredDrones,
-    //   droneIsolated,
-  } = useContext(GlobalContext).droneContext;
+  const { selectedDrone, setSelectedDrone, allRegisteredDrones } =
+    useContext(GlobalContext).droneContext;
 
   if (allRegisteredDrones.length === 0) {
     return <></>;
   }
+
   useEffect(() => {
-    // console.log(selectedDrone);
     if (!searchParams.has("droneID")) {
       searchParams.set("droneID", selectedDrone.droneID);
       const newUrl = `${window.location.pathname}?${searchParams.toString()}`;
@@ -143,53 +147,45 @@ function DataPageWrapper() {
       router.push(newUrl);
     }
   }, [selectedDrone]);
-  //   console.log({ selectedDrone, setSelectedDrone, allRegisteredDrones });
+
   if (selectedDrone === undefined || selectedDrone.droneID === "Placeholder") {
     return <></>;
   } else {
-    return <DataPage></DataPage>;
+    return <DataPage />;
   }
 }
+
+/**
+ * Main component for the data page.
+ */
 function DataPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
-
-  const {
-    selectedDrone,
-    setSelectedDrone,
-    allRegisteredDrones,
-    //   droneIsolated,
-  } = useContext(GlobalContext).droneContext;
+  const { selectedDrone, setSelectedDrone, allRegisteredDrones } =
+    useContext(GlobalContext).droneContext;
 
   const [selectedMission, setSelectedMission] = useState<IFlightLog>();
   const [isLive, setIsLive] = useState(true);
   const [time, setTime] = useState(0);
 
-  //   console.log({ selectedDrone, setSelectedDrone, allRegisteredDrones });
   useEffect(() => {
     setIsLive(true);
     currentFlyingDrone = selectedDrone;
   }, []);
 
   useEffect(() => {
-    const asyncFunc = async () => {
+    const fetchData = async () => {
       const flightLogs = await Database.getNonRealTimeData(
         selectedDrone.droneID
       );
       missions = flightLogs;
-      //   if (selectedMission === undefined) {
       const mission = missions[0] as FlightLogFromDB;
-      // console.log(selectedMission);
-      // setTime(0);
       setSelectedMission(DataCastHelper.flightLogFromDBToFlightLog(mission));
-      //   setSelectedDrone((missions[0] as unknown as IFlightLog)[time]);
       setTime(0);
-
-      //@ts-ignore
-      missionCoordinates = selectedMission?.flightLog
-      //   }
+      // @ts-ignore
+      missionCoordinates = selectedMission?.flightLog;
     };
-    asyncFunc();
+    fetchData();
   }, []);
 
   useEffect(() => {
@@ -200,38 +196,41 @@ function DataPage() {
 
   useEffect(() => {
     if (isLive) {
-      //find the drone that is currently flying
       setSelectedDrone(currentFlyingDrone);
     } else {
       const mission = missions[0] as FlightLogFromDB;
-      // console.log(selectedMission);
-      // setTime(0);
       setSelectedMission(DataCastHelper.flightLogFromDBToFlightLog(mission));
-      //   setSelectedDrone((missions[0] as unknown as IFlightLog)[time]);
       setTime(0);
       setSelectedDrone((selectedMission as IFlightLog).flightLog[time]);
-      
-      missionCoordinates = DataCastHelper.pathArrayFromFlightLog(selectedMission as IFlightLog);
+      missionCoordinates = DataCastHelper.pathArrayFromFlightLog(
+        selectedMission as IFlightLog
+      );
     }
-    //   else if (missions && missions.length > 0){
-    //     // setSelectedMission(missions[0]);
-    //     // console.log(missions[0]);
-    // setTime(0);
-    // }
   }, [isLive]);
 
+  useEffect(() => {
+    if (selectedMission && !isLive) {
+      setTime(0);
+      setSelectedDrone((selectedMission as IFlightLog).flightLog[time]);
+      missionCoordinates = DataCastHelper.pathArrayFromFlightLog(
+        selectedMission as IFlightLog
+      );
+    }
+  }, [selectedMission]);
+
+  /**
+   * Toggles live mode on or off.
+   */
   function toggleLive(): void {
     setIsLive(!isLive);
   }
 
-  //   return <></>
   if (
     isLive ||
     missions.length === 0 ||
     missions === undefined ||
     selectedMission === undefined
   ) {
-    //   if (false) {
     return (
       <div className="ui container">
         <div className="flight-info">
@@ -244,50 +243,23 @@ function DataPage() {
             }}
             id="flightNumber"
           >
-            {/* <Link to="/data">{selectedDrone.droneID} </Link> */}
-            {/* <h2> */}
-            {/* <Link to="/data">{selectedDrone.droneID}</Link> */}
-            <text
-              onClick={() => {
-                // console.log(selectedDrone);
-                // router.push("/Data");
-              }}
+            <span
+              onClick={() => {}}
               onMouseOver={() => {
-                //make the mouse pointer a hand when hovering over the text
                 document.body.style.cursor = "pointer";
-                //add some kind of emphasis on the text when hover
               }}
-            //   <Link></Link>
               onMouseLeave={() => {
-                //change the mouse pointer back to the default when not hovering over the text
                 document.body.style.cursor = "default";
               }}
               style={{ color: "#0563C1" }}
             >
               {selectedDrone.droneID}
-            </text>
+            </span>
 
-            <NavigationBar floatLeft={false} router={router}></NavigationBar>
-            {/* <button
-              onClick={() => {
-                toggleLive();
-              }}
-              style={{
-                display: "flex",
-                justifyContent: "left",
-                padding: "10px",
-              }}
-              className="ui icon button invisible"
-            >
-              <i
-                style={{ display: "flex", justifyContent: "center" }}
-                className={`ui big ${isLive ? "green" : "red"} circle icon`}
-              ></i>
-            </button> */}
+            <NavigationBar floatLeft={false} router={router} />
+
             <button
-              onClick={() => {
-                toggleLive();
-              }}
+              onClick={toggleLive}
               style={{
                 display: "flex",
                 justifyContent: "center",
@@ -314,6 +286,11 @@ function DataPage() {
               }
             `}</style>
           </h2>
+          <p style={{ marginTop: -12, textAlign: "center", color: "gray" }}>
+            {isLive
+              ? "You are currently viewing live data. Click the green button to view previous missions."
+              : "You are viewing previous missions. Click the red button to go back to live data."}
+          </p>
           <Map
             latLng={selectedDrone.coordinate}
             zoom={7}
@@ -331,6 +308,32 @@ function DataPage() {
             frequency={180}
             droneID={selectedDrone.droneID}
           />
+          <p
+            style={{
+              padding: 0,
+              margin: 0,
+              marginTop: -6,
+              marginBottom: 0,
+              fontSize: 14,
+              textAlign: "center",
+              color: "gray",
+            }}
+          >
+            The above banner allows the user to configure the blackbox in flight via satellite!
+          </p>
+          <p
+            style={{
+              padding: 0,
+              margin: 0,
+              marginTop: 0,
+              marginBottom: 12,
+              fontSize: 14,
+              textAlign: "center",
+              color: "gray",
+            }}
+          >
+            Note: Configuration has been disabled for the public site.
+          </p>
           <TelemetryTable showLastLink={true} flightData={selectedDrone} />
         </div>
       </div>
@@ -349,22 +352,15 @@ function DataPage() {
             id="flightNumber"
           >
             {selectedDrone.droneID}
-            {/* <Link to="/data">{selectedDrone.droneID} </Link> */}
 
             <NavigationBar
               floatLeft={false}
-              whenClicked={() => {
-
-                setSelectedDrone(currentFlyingDrone);
-              }}
+              whenClicked={() => setSelectedDrone(currentFlyingDrone)}
               router={router}
-            ></NavigationBar>
+            />
             <button
-              onClick={() => {
-                toggleLive();
-              }}
+              onClick={toggleLive}
               style={{
-                // float: props.floatLeft ? 'left' : 'right',
                 justifyContent: "center",
                 paddingRight: "0px",
                 backgroundColor: "transparent",
@@ -378,6 +374,11 @@ function DataPage() {
               ></i>
             </button>
           </h2>
+          <p style={{ marginTop: -12, fontSize:14, textAlign: "center", color: "gray" }}>
+            {isLive
+              ? "You are currently viewing live data. Click the green button to view previous missions."
+              : "You are viewing previous missions. Click the red button to go back to live data."}
+          </p>
           <Map
             latLng={selectedDrone.coordinate}
             zoom={7}
@@ -389,117 +390,99 @@ function DataPage() {
               true,
               selectedDrone
             )}
-
             <Path path={missionCoordinates} />
           </Map>
 
           {selectedMission && selectedMission.flightLog.length > 0 ? (
             <TimeSlider
               min={0}
-              max={selectedMission?.flightLog.length as number}
+              max={selectedMission.flightLog.length}
               step={1}
               width={"100%"}
               time={time}
               setTime={setTime}
               mission={selectedMission}
             />
-          ) : (
-            <></>
-          )}
-
+          ) : null}
+          <p style={{ fontSize:14, textAlign: "center", color: "gray" }}>
+            Move the slider to playback the flight!
+          </p>
           <TelemetryTable showLastLink={false} flightData={selectedDrone} />
           {missions && missions.length > 0 ? (
-            <Missions
-              rows={missions.map((mission) => {
-                mission = {
-                  droneID: selectedDrone.droneID,
-                  flightLog: mission.flightLog,
-                };
-                if (
-                  mission.flightLog[mission.flightLog.length - 1].flightTime ===
-                  undefined
-                ) {
-                  repairFlightLog(mission);
-                }
+            <>
+              <Missions
+                rows={missions.map((mission) => {
+                  if (
+                    !mission.flightLog[mission.flightLog.length - 1].flightTime
+                  ) {
+                    repairFlightLog(mission);
+                  }
 
-                const flightTime: String = secondsToHms(
-                  mission.flightLog[mission.flightLog.length - 1]
-                    .flightTime as number
-                );
-                const takeOffDate: Date = new Date(
-                  mission.flightLog[0].uploadTime
-                );
-                const landingDate: Date = new Date(
-                  mission.flightLog[mission.flightLog.length - 1].uploadTime
-                );
+                  const flightTime: string = secondsToHms(
+                    mission.flightLog[mission.flightLog.length - 1].flightTime
+                  );
+                  const takeOffDate: Date = new Date(
+                    mission.flightLog[0].uploadTime
+                  );
+                  const landingDate: Date = new Date(
+                    mission.flightLog[mission.flightLog.length - 1].uploadTime
+                  );
 
-                const takeOffTime: String =
-                  takeOffDate.getFullYear() +
-                  "-" +
-                  takeOffDate.getMonth() +
-                  "-" +
-                  takeOffDate.getDate() +
-                  " " +
-                  takeOffDate.getHours() +
-                  ":" +
-                  takeOffDate.getMinutes() +
-                  ":" +
-                  takeOffDate.getSeconds();
-                const landingTime: String =
-                  landingDate.getFullYear() +
-                  "-" +
-                  landingDate.getMonth() +
-                  "-" +
-                  landingDate.getDate() +
-                  " - " +
-                  landingDate.getHours() +
-                  ":" +
-                  landingDate.getMinutes() +
-                  ":" +
-                  landingDate.getSeconds();
+                  const takeOffTime: string =
+                    `${takeOffDate.getFullYear()}-${
+                      takeOffDate.getMonth() + 1
+                    }-${takeOffDate.getDate()} ` +
+                    `${takeOffDate.getHours()}:${takeOffDate.getMinutes()}:${takeOffDate.getSeconds()}`;
+                  const landingTime: string =
+                    `${landingDate.getFullYear()}-${
+                      landingDate.getMonth() + 1
+                    }-${landingDate.getDate()} ` +
+                    `${landingDate.getHours()}:${landingDate.getMinutes()}:${landingDate.getSeconds()}`;
 
-                return {
-                  mission: mission,
-                  row: {
-                    firstColumn: mission.droneID,
-                    secondColumn: String(takeOffTime),
-                    thirdColumn: String(landingTime),
-                    fourthColumn: String(flightTime),
-                  },
-                  icon: "plane",
-                };
-              })}
-              handleClick={(mission) => {
-                setSelectedMission(
-                  DataCastHelper.flightLogFromDBToFlightLog(mission)
-                );
-                setTime(0);
-              }}
-            />
-          ) : (
-            <></>
-          )}
+                  return {
+                    mission,
+                    row: {
+                      firstColumn: mission.droneID,
+                      secondColumn: takeOffTime,
+                      thirdColumn: landingTime,
+                      fourthColumn: flightTime,
+                    },
+                    icon: "plane",
+                  };
+                })}
+                handleClick={(mission) => {
+                  setSelectedMission(
+                    DataCastHelper.flightLogFromDBToFlightLog(mission)
+                  );
+                  setTime(0);
+                }}
+              />
+            </>
+          ) : null}
         </div>
       </div>
     );
   }
 }
 
+/**
+ * Checks if the given drone ID exists in the list of drones.
+ * @param {string | null} droneID - The drone ID to check.
+ * @param {IFlightData[]} drones - The list of drones.
+ * @returns {boolean} True if the drone ID exists, false otherwise.
+ */
 function droneIDExists(droneID: string | null, drones: IFlightData[]): boolean {
   if (droneID === null) {
     return false;
   }
-  for (let i = 0; i < drones.length; i++) {
-    if (drones[i].droneID === droneID) {
-      return true;
-    }
-  }
-  return false;
+  return drones.some((drone) => drone.droneID === droneID);
 }
 
+/**
+ * Repairs the flight log for the given mission by calculating flight time and upload time.
+ * @param {any} mission - The mission to repair.
+ */
 function repairFlightLog(mission: any) {
-  // console.log(mission);
-
   const firstLogTime = mission.flightLog[0].timeStamp.seconds;
   mission.flightLog.forEach((log: any) => {
     log.flightTime = log.timeStamp.seconds - firstLogTime;
