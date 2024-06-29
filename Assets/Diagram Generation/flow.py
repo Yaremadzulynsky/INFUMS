@@ -9,7 +9,7 @@ from diagrams.firebase.develop import Functions, RealtimeDatabase, Firestore, Au
 from diagrams.gcp.compute import Run
 from diagrams.gcp.devtools import GCR
 
-with Diagram("Infrastructure Usage", show=False):
+with Diagram("Service Interactions", show=False):
     with Cluster("Firebase"):
         realtimeDB = RealtimeDatabase("Realtime Database")
         firestore = Firestore("Firestore")
