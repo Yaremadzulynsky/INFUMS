@@ -1,4 +1,3 @@
-CURRENTLY A WORK IN PROGRESS!
 # [Integrated Navigation and Flight UAV Monitoring System (INFUMS)](https://www.projectinfums.com/)
 
 ## Table of Contents
@@ -14,7 +13,21 @@ CURRENTLY A WORK IN PROGRESS!
 
 ## About
 
-WHAT IS THE PROJECT? WHAT IS THE PURPOSE?
+For my first co-op at the University of Waterloo, I worked as an engineering intern at AeroDrone, a drone technology company based in Ukraine. During my 4 months at AeroDrone, I was tasked with developing an integrated system, including designing proprietary hardware, writing custom software and orchestrating cloud services, which would allow live monitoring of autonomous drone fleets. This integrated system was to be achieved via the development of an advanced UAV blackbox which would stream telemetry data via satellite connection. This data was to show up live on a secure website to allow central monitoring of drone fleets. Project INFUMS aimed to enhance drone operations through robust data logging, real-time tracking, and global communication capabilities.
+
+With AeroDrone's team located overseas and operating in different time zones, I needed to take ownership of the project. I was given a rough idea of the desired functionality for the final product and took on the full responsibility of ideation, design, prototyping, and software development. With the support of my manager, [Dmytro Shymkiv](https://forumkyiv.org/en/speakers/dmitro-shimkiv-2022) (former General Manager of Microsoft Ukraine & former Deputy Head of the Presidential Administration of Ukraine), I was able to independently navigate every aspect of this project, from the initial concept to the final product. 
+
+Project INFUMS not only logs and stores flight data but also livestreams telemetry data for real-time monitoring. I developed a flexible and user-friendly website that allows the addition and management of multiple blackboxes attached to drones, making it possible to monitor drone fleets. The website provides detailed visualizations, including real-time tracking on Google Maps, and allows users to configure settings and analyze flight logs.
+
+Key hardware components include the Arduino MKR WiFi 1010 for connectivity, Pixhawk 6C for telemetry data, and the Iridium 9602N satellite modem for global communication. The system also utilizes custom 3D printed housings for protecting the hardware.
+
+On the software side, Firebase is used for data management, while the Google Maps API enables real-time location visualization. The Rock 7 platform is employed to register and configure the satellite modem.
+
+Furthermore, the blackbox communication module has the potential to enable satellite-based drone control, opening up new possibilities for remote and autonomous drone operations. This project demonstrates a modular and scalable approach, allowing easy integration and replacement of components to future-proof the system.
+
+Overall, this initiative provides a robust solution for enhancing drone operations, making it ideal for applications requiring comprehensive data analysis, real-time monitoring, and global communication capabilities. 
+
+Note: After completing my internship with AeroDrone, I was given the incredible opportunity to continue this project personally, allowing me to continue to development on my own time and take it to the next level!
 
 ### Physical Prototype
 ![alt text](Assets/Prototype.jpg)
@@ -74,7 +87,7 @@ Key Features:
 
 I developed this web application to connect to the physical blackbox prototype to provide a comprehensive overview of UAV operations, enhancing situational awareness and operational efficiency for drone fleets. The website automatically displays data from globally connected UAVs (which contain blackboxes) and allows for easy management and customization of the individual blackbox settings.
 
-This part of the project was my first foray into web development, databases, cloud computing, and serverless functions. I had to learn to use multiple web technologies, such as React, Node.js, and GCP services as well as learn languages such as HTML, CSS and Typescript (Javascript), to build a scalable and responsive web application. I also designed and implemented a secure authentication system using Google Auth to ensure user privacy and data security.
+This part of the project was my first foray into web development, databases and cloud computing. I had to learn to use multiple web technologies, such as React, Node.js, and GCP services as well as learn languages such as HTML, CSS and Typescript (Javascript), to build a scalable and responsive web application. I also designed and implemented a secure authentication system using Google Auth to ensure user privacy and data security.
 
 Initially, I developed with vanilla HTML, CSS, and JavaScript but soon realized the need for a more robust framework as the codebase grew. I then switched to React and wrote the code with TypeScript, which allowed me to build a more modular and maintainable application. Finally, I settled on using a combination of Next.js, React, TypeScript, and Semantic UI, as this stack enabled me to build a modular, responsive, and visually appealing application and opens up the possibility of server-side rendering via Next.js in the future.
 
