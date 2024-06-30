@@ -72,7 +72,7 @@ Key Features:
 - Authentication: Authenticate users using Google Auth for secure access.
 - Website to Blackbox Communication: Configure blackbox settings through the web interface.
 
-I developed this web application to connect to the physical blackbox prototype to provide a comprehensive overview of UAV operations, enhancing situational awareness and operational efficiency for drone fleets. The website automatically displays data from globally connected UAVs (which contain backbones) and allows for easy management and customization of the individual blackbox settings.
+I developed this web application to connect to the physical blackbox prototype to provide a comprehensive overview of UAV operations, enhancing situational awareness and operational efficiency for drone fleets. The website automatically displays data from globally connected UAVs (which contain blackboxes) and allows for easy management and customization of the individual blackbox settings.
 
 This part of the project was my first foray into web development, databases, cloud computing, and serverless functions. I had to learn to use multiple web technologies, such as React, Node.js, and GCP services as well as learn languages such as HTML, CSS and Typescript (Javascript), to build a scalable and responsive web application. I also designed and implemented a secure authentication system using Google Auth to ensure user privacy and data security.
 
