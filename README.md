@@ -30,14 +30,15 @@ INFUMS (Integrated Navigation and Flight UAV Monitoring System) is designed to i
 
 ### Physical Prototype
 ![alt text](Assets/Prototype.jpg)
+**[Prototype Components Description (Youtube Video: Click me!)](https://www.youtube.com/watch?v=KGkPDvCn8ZI)**
+
+**[Prototype Demo & Description (Youtube Video: Click me!)](https://www.youtube.com/watch?v=UsFnPDAGzQs)**
 
 I designed, tested, and built this fully functional prototype, incorporating custom-designed 3D-printed components and off-the-shelf parts into a cohesive system. This prototype took approximately 50% of the project's development time and includes custom embedded software and hardware. It is globally connected via satellite, automatically configures itself upon power-up, and is displayed on the website. Designed for harsh environments, it features grounding wires, vibration mounts for the flight controller, and a modular case for easy upgrades or component replacements.
 
 I digitally designed the entire system in CAD, then 3D printed and assembled it. I also documented the prototype extensively, including wiring diagrams and other details. This project was my first foray into 3D printing, satellite communication, drone telemetry protocols, product development, and serverless functions (satellite communication routing to the database), which I had to learn on the fly (pun intended)!
 
 The prototype is a fully functional UAV blackbox, which, similar to an airplane's blackbox, records and monitors flight information but also transmits this information and receives commands via a two-way satellite link (at a cost of significantly less than $10-15k/airplane blackbox). This blackbox system was designed for real-world applications (ex. fleet management). It is modular, reliable, and easy to use, making it ideal for commercial and industrial drone operations in harsh environments. The system includes a flight controller, GPS, Arduino, satellite modem, and a 12 to 5V step-down converter, all of which I researched and sourced.
-
-**[Components Description (Youtube Video)](https://www.youtube.com/watch?v=KGkPDvCn8ZI)**
 
 My design process included:
 
@@ -75,8 +76,10 @@ Final prototype with all subsystems integrated.
 ![alt text](Assets/Site.png)
 
 
+
 ### Flow Diagram
 ![alt text](<Assets/Flow Diagram.png>)
+**[Integrated System Demo (Youtube Video: Click me!)](https://www.youtube.com/watch?v=riUz8zWrtcc)**
 
 ## Project Structure
 
