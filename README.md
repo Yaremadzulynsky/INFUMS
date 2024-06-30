@@ -27,7 +27,7 @@ Furthermore, the blackbox communication module has the potential to enable satel
 
 Overall, this initiative provides a robust solution for enhancing drone operations, making it ideal for applications requiring comprehensive data analysis, real-time monitoring, and global communication capabilities. 
 
-Note: After completing my internship with AeroDrone, I was given the incredible opportunity to continue this project personally, allowing me to continue to development on my own time and take it to the next level!
+Note: After completing my internship with AeroDrone, I was given the incredible opportunity to continue this project personally, allowing me to continue development on my own time and take it to the next level!
 
 ### Physical Prototype
 ![alt text](Assets/Prototype.jpg)
