@@ -1,16 +1,6 @@
 CURRENTLY A WORK IN PROGRESS!
 # [Integrated Navigation and Flight UAV Monitoring System (INFUMS)](https://www.projectinfums.com/)
 
-Welcome to the INFUMS repository. This project is a comprehensive data streaming initiative designed to enhance drone operations through robust data logging, real-time tracking, and global communication capabilities. This repository contains all the necessary code, CAD files, documentation, and operations manual.
-
-# Infrastructure Flow
-
-# Table of Contents
-
-# INFUMS: Integrated Navigation and Flight UAV Monitoring System
-
-Welcome to the INFUMS repository. This project aims to enhance drone operations through comprehensive data streaming, robust data logging, real-time tracking, and global communication capabilities.
-
 ## Table of Contents
 
 - [About](#about)
@@ -24,9 +14,7 @@ Welcome to the INFUMS repository. This project aims to enhance drone operations 
 
 ## About
 
-INFUMS (Integrated Navigation and Flight UAV Monitoring System) is designed to improve UAV operations by providing a robust framework for data streaming, logging, tracking, and communication. This system integrates multiple components to ensure seamless UAV monitoring and control.
-
-<MORE ABOUT THE PROJECT>
+WHAT IS THE PROJECT? WHAT IS THE PURPOSE?
 
 ### Physical Prototype
 ![alt text](Assets/Prototype.jpg)
@@ -36,7 +24,7 @@ INFUMS (Integrated Navigation and Flight UAV Monitoring System) is designed to i
 
 I designed, tested, and built this fully functional prototype, incorporating custom-designed 3D-printed components and off-the-shelf parts into a cohesive system. This prototype took approximately 50% of the project's development time and includes custom embedded software and hardware. It is globally connected via satellite, automatically configures itself upon power-up, and is displayed on the website. Designed for harsh environments, it features grounding wires, vibration mounts for the flight controller, and a modular case for easy upgrades or component replacements.
 
-I digitally designed the entire system in CAD, then 3D printed and assembled it. I also documented the prototype extensively, including wiring diagrams and other details. This project was my first foray into 3D printing, satellite communication, drone telemetry protocols, product development, and serverless functions (satellite communication routing to the database), which I had to learn on the fly (pun intended)!
+I digitally designed the entire system in CAD, then 3D printed and assembled it. I also documented the prototype extensively, including wiring diagrams and other details. This part of the project was my first foray into 3D printing, satellite communication, drone telemetry protocols, product development, and serverless functions (satellite communication routing to the database), which I had to learn on the fly (pun intended)!
 
 The prototype is a fully functional UAV blackbox, which, similar to an airplane's blackbox, records and monitors flight information but also transmits this information and receives commands via a two-way satellite link (at a cost of significantly less than $10-15k/airplane blackbox). This blackbox system was designed for real-world applications (ex. fleet management). It is modular, reliable, and easy to use, making it ideal for commercial and industrial drone operations in harsh environments. The system includes a flight controller, GPS, Arduino, satellite modem, and a 12 to 5V step-down converter, all of which I researched and sourced.
 
@@ -72,9 +60,23 @@ Testing satellite communication.
 ![alt text](Assets/Prototype.jpg)
 Final prototype with all subsystems integrated.
 
-### Website
+### [Website (Click me!)](https://www.projectinfums.com/)
 ![alt text](Assets/Site.png)
+The website for the Integrated Navigation and Flight UAV Monitoring System (INFUMS) is a crucial component that provides a user-friendly interface for monitoring and managing UAV operations. Developed using modern web technologies, the website ensures a responsive and intuitive user experience, integrating seamlessly with backend microservices to provide real-time data visualization, UAV tracking, and system management capabilities.
 
+Key Features:
+
+- Real-time Tracking: Monitor the live location and status of UAVs.
+- Data Visualization: View and analyze telemetry data through interactive maps and tables.
+- Flight Playback: Replay past flights and analyze flight paths and data.
+- Authentication: Authenticate users using Google Auth for secure access.
+- Website to Blackbox Communication: Configure blackbox settings through the web interface.
+
+I developed this web application to connect to the physical blackbox prototype to provide a comprehensive overview of UAV operations, enhancing situational awareness and operational efficiency for drone fleets. The website automatically displays data from globally connected UAVs (which contain backbones) and allows for easy management and customization of the individual blackbox settings.
+
+This part of the project was my first foray into web development, databases, cloud computing, and serverless functions. I had to learn to use multiple web technologies, such as React, Node.js, and GCP services as well as learn languages such as HTML, CSS and Typescript (Javascript), to build a scalable and responsive web application. I also designed and implemented a secure authentication system using Google Auth to ensure user privacy and data security.
+
+Initially, I developed with vanilla HTML, CSS, and JavaScript but soon realized the need for a more robust framework as the codebase grew. I then switched to React and wrote the code with TypeScript, which allowed me to build a more modular and maintainable application. Finally, I settled on using a combination of Next.js, React, TypeScript, and Semantic UI, as this stack enabled me to build a modular, responsive, and visually appealing application and opens up the possibility of server-side rendering via Next.js in the future.
 
 
 ### Flow Diagram
