@@ -6,11 +6,11 @@ import { getDatabase, ref, set, DatabaseReference } from "firebase/database";
 import { config } from "dotenv";
 
 const inputFolder =
-  "/Users/yaremadzulynsky/Software/Major_Projects/AeroRadarPublic/Microservices/MockData/csv-files"; // Folder containing CSV files
+  "./Microservices/MockData/csv-files"; // Folder containing CSV files
 const jsonFolder =
-  "/Users/yaremadzulynsky/Software/Major_Projects/AeroRadarPublic/Microservices/MockData/json-files"; // Folder to save JSON files
+  "./Microservices/MockData/json-files"; // Folder to save JSON files
 const combinedJsonFile =
-  "/Users/yaremadzulynsky/Software/Major_Projects/AeroRadarPublic/Microservices/MockData/combined-data.json"; // File to save combined JSON data
+  "./Microservices/MockData/combined-data.json"; // File to save combined JSON data
 // Initialize Firebase app with the configuration
 
 config();
